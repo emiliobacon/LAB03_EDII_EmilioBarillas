@@ -64,7 +64,7 @@ namespace Laboratorio01.Controllers
                 long parametro = (long.Parse(collection["Id"]));
 
                 string Codificado = LZ78.LZ78.CodingLZ78(LeerCartas.Leer(parametro));
-                string Decodificado = LZ78.LZ78.decodingLZ78(LZ78.LZ78.CodingLZ78(LeerCartas.Leer(parametro)));
+                string Decodificado = LZ78.LZ78.decodingLZ78(Codificado);
 
                 ViewData["Codificado"] = Codificado;
 

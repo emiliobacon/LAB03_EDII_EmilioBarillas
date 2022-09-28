@@ -50,7 +50,9 @@ namespace Laboratorio01.LZ78
                     retrn = 0;
                 }
 
-            }                 
+            }
+
+            decodingLZ78(a);
             return a;
         }
 

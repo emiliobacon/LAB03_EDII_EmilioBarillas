@@ -13,6 +13,7 @@
     <None Remove="CsvHelper" />
     <None Remove="LZ78\" />
     <None Remove="Cartas\" />
+    <None Remove="LZW\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Data_Structure\" />
@@ -25,6 +26,7 @@
     <Folder Include="wwwroot\files\" />
     <Folder Include="wwwroot\FilesTo\" />
     <Folder Include="Cartas\" />
+    <Folder Include="LZW\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
