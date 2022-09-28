@@ -62,18 +62,51 @@ namespace Laboratorio01.Controllers
             try
             {
                 long parametro = (long.Parse(collection["Id"]));
-
-                string carta = LeerCartas.Leer(parametro);
-
-                List<int> Codificado = LZW.LZW.Codificar(carta);
-
-                string Decodificado = LZW.LZW.Decodificar(Codificado);
-
-                ViewData["Codificado"] = LZW.LZW.Desencolar(Codificado);
-
-                ViewData["Decodificado"] = Decodificado;
-
                 ViewData["DPI"] = parametro;
+
+                //insertar carta 1
+                if (LeerCartas.Leer(parametro, 1) != "error")
+                {
+                    string carta = LeerCartas.Leer(parametro, 1);
+
+                    ViewData["Codificado_1"] = LZW.LZW.Desencolar(LZW.LZW.Codificar(carta));
+
+                    ViewData["Decodificado_1"] = LZW.LZW.Decodificar(LZW.LZW.Codificar(carta));
+                }
+                else
+                {
+                    return RedirectToAction(nameof(Error));
+                }
+
+                //insertar carta 2
+                if (LeerCartas.Leer(parametro, 2) != "error")
+                {
+                    string carta = LeerCartas.Leer(parametro, 2);
+
+                    ViewData["Codificado_2"] = LZW.LZW.Desencolar(LZW.LZW.Codificar(carta));
+
+                    ViewData["Decodificado_2"] = LZW.LZW.Decodificar(LZW.LZW.Codificar(carta));
+                }
+                //insertar carta 3
+                if (LeerCartas.Leer(parametro, 3) != "error")
+                {
+                    string carta = LeerCartas.Leer(parametro, 3);
+
+                    ViewData["Codificado_3"] = LZW.LZW.Desencolar(LZW.LZW.Codificar(carta));
+
+                    ViewData["Decodificado_3"] = LZW.LZW.Decodificar(LZW.LZW.Codificar(carta));
+                }
+                //insertar carta 4
+                if (LeerCartas.Leer(parametro, 4) != "error")
+                {
+                    string carta = LeerCartas.Leer(parametro, 4);
+
+                    ViewData["Codificado_4"] = LZW.LZW.Desencolar(LZW.LZW.Codificar(carta));
+
+                    ViewData["Decodificado_4"] = LZW.LZW.Decodificar(LZW.LZW.Codificar(carta));
+                }
+
+
 
                 return View();
             }

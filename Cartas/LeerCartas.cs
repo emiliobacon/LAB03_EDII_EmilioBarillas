@@ -5,9 +5,9 @@ namespace Laboratorio01.Cartas
 {
     public class LeerCartas
     {
-        public static string Leer(long dpi)
+        public static string Leer(long dpi, int numero)
         {
-            string path = @"/Users/emilio/Desktop/caso talent hub/wwwroot/files/REC-" + dpi.ToString() + "-1.txt";
+            string path = @"/Users/emilio/Desktop/caso talent hub/wwwroot/files/REC-" + dpi.ToString() + "-" + numero.ToString() + ".txt";
 
             
             if (!File.Exists(path))
