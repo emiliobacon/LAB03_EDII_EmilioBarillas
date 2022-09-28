@@ -126,15 +126,23 @@ namespace Laboratorio01.Comparison
             a.Companies = "";
 
             string[] words = phrase.Split(' ');
+
             foreach (var word in words)
             {
-                string aCodificar = word + a.Id;
 
-                a.Companies += word + ": " + LZ78.LZ78.CodingLZ78(aCodificar) + " ";
+                if (word != "")
+                {
+                    string aCodificar = word + a.Id;
 
-                a.CompaniesDecoded +=  LZ78.LZ78.decodingLZ78(LZ78.LZ78.CodingLZ78(aCodificar)) + " ";
+                    a.Companies += word + ": " + LZ78.LZ78.CodingLZ78(aCodificar) + " ";
 
-            }
+                    a.CompaniesDecoded += LZ78.LZ78.decodingLZ78(LZ78.LZ78.CodingLZ78(aCodificar)) + " ";
+
+                }
+
+
+
+        }
             a.Companies = a.Companies;
         }
 

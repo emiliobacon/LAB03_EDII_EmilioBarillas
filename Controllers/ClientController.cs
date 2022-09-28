@@ -53,11 +53,6 @@ namespace Laboratorio01.Controllers
 
                     ViewData["Decodificado_1"] = LZW.LZW.Decodificar(LZW.LZW.Codificar(carta));
                 }
-                else
-                {
-                    return RedirectToAction(nameof(Error));
-                }
-
                 //insertar carta 2
                 if (LeerCartas.Leer(parametro, 2) != "error")
                 {
