@@ -39,31 +39,117 @@
         </tr>
     </thead>
     <tbody>
-       
-            <tr>
-                <td>
-                    @Model.Id
-                </td>
-                <td>
-                    @Model.FullName
-                </td>
-                <td>
-                    @Model.Birthdate
-                </td>
-                <td>
-                    @Model.Address
-                </td>
-                <td>
-                    @Model.Companies
-                </td>
-                <td>
-                    @Model.CompaniesDecoded
-                </td>
-                @*<td>
+
+        <tr>
+            <td>
+                @Model.Id
+            </td>
+            <td>
+                @Model.FullName
+            </td>
+            <td>
+                @Model.Birthdate
+            </td>
+            <td>
+                @Model.Address
+            </td>
+            <td>
+                @Model.Companies
+            </td>
+            <td>
+                @Model.CompaniesDecoded
+            </td>
+            @*<td>
                     <a asp-action="decoded">Decodificar</a>
                 </td>*@
 
-            </tr>
-        
+        </tr>
+
     </tbody>
 </table>
+<h1>
+    Cartas de Recomendación 
+</h1>
+<br />
+<h2>
+    Carta #1
+</h2>
+<h4>
+    Decodificada
+</h4>
+<p>
+    @ViewData["Decodificado_1"]
+</p>
+
+<br />
+
+<h4>
+    Codificada
+</h4>
+
+<p>
+    @ViewData["Codificado_1"]
+</p>
+
+<br />
+<h2>
+    Carta #2
+</h2>
+<h4>
+    Decodificada
+</h4>
+<p>
+    @ViewData["Decodificado_2"]
+</p>
+
+<br />
+
+<h4>
+    Codificada
+</h4>
+
+<p>
+    @ViewData["Codificado_2"]
+</p>
+
+<br />
+<h2>
+    Carta #3
+</h2>
+<h4>
+    Decodificada
+</h4>
+<p>
+    @ViewData["Decodificado_3"]
+</p>
+
+<br />
+
+<h4>
+    Codificada
+</h4>
+
+<p>
+    @ViewData["Codificado_3"]
+</p>
+
+<br />
+<h2>
+    Carta #4
+</h2>
+<h4>
+    Decodificada
+</h4>
+<p>
+    @ViewData["Decodificado_4"]
+</p>
+
+<br />
+
+<h4>
+    Codificada
+</h4>
+
+<p>
+    @ViewData["Codificado_4"]
+</p>
