@@ -52,7 +52,7 @@ namespace Laboratorio01.LZ78
 
             }
 
-            decodingLZ78(a);
+            
             return a;
         }
 
