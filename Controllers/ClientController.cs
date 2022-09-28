@@ -12,12 +12,16 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Web;
-
+using System.Reflection;
+using Laboratorio01.Cartas;
 
 namespace Laboratorio01.Controllers
 {
     public class ClientController : Controller
     {
+        
+
+
         // GET: Client
         public ActionResult Index()
         {
@@ -36,7 +40,8 @@ namespace Laboratorio01.Controllers
         {
             try
             {
-                long parametro = (long.Parse(collection["Id"]));                
+                long parametro = (long.Parse(collection["Id"]));
+                
                 return View(Data.Instance.miArbolAvlId.Buscar(Comparison.Comparison.CompararID(parametro)));
             }
             catch 
@@ -44,6 +49,38 @@ namespace Laboratorio01.Controllers
                 return RedirectToAction(nameof(Error));
             }
         }
+
+        //cartas
+        public ActionResult searchLetter()
+        {
+            return View(new ClientModel());
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult searchLetter(IFormCollection collection)
+        {
+            try
+            {
+                long parametro = (long.Parse(collection["Id"]));
+
+                string Codificado = LZ78.LZ78.CodingLZ78(LeerCartas.Leer(parametro));
+                string Decodificado = LZ78.LZ78.decodingLZ78(LZ78.LZ78.CodingLZ78(LeerCartas.Leer(parametro)));
+
+                ViewData["Codificado"] = Codificado;
+
+                ViewData["Decodificado"] = Decodificado;
+
+                ViewData["DPI"] = parametro;
+
+                return View();
+            }
+            catch
+            {
+                return RedirectToAction(nameof(Error));
+            }
+        }
+
+
 
         //busqueda completa
         public ActionResult decoded()
@@ -56,7 +93,8 @@ namespace Laboratorio01.Controllers
         {
             try
             {
-                int parametro = (int.Parse(collection["Id"]));
+                long parametro = (int.Parse(collection["Id"]));
+
 
                 return View(Data.Instance.miArbolAvlId.Buscar(Comparison.Comparison.CompararID(parametro)));
             }
@@ -132,6 +170,8 @@ namespace Laboratorio01.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(IFormCollection collection)
         {
+            
+
             try
             {
                 ClientModel.SaveAVLMode(new ClientModel
