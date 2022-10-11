@@ -7,26 +7,26 @@ namespace Laboratorio01.Cipher
 {
     public class Transposition
     {
-        private static int[] GetShiftIndexes(string key)
+        private static int[] Indexs(string llave)
         {
-            int keyLength = key.Length;
-            int[] indexes = new int[keyLength];
-            List<KeyValuePair<int, char>> sortedKey = new List<KeyValuePair<int, char>>();
+            int longitudLlave = llave.Length;
+            int[] indexs = new int[longitudLlave];
+            List<KeyValuePair<int, char>> llaveOrdenada = new List<KeyValuePair<int, char>>();
             int i;
 
-            for (i = 0; i < keyLength; ++i)
-                sortedKey.Add(new KeyValuePair<int, char>(i, key[i]));
+            for (i = 0; i < longitudLlave; ++i)
+                llaveOrdenada.Add(new KeyValuePair<int, char>(i, llave[i]));
 
-            sortedKey.Sort(
-                delegate (KeyValuePair<int, char> pair1, KeyValuePair<int, char> pair2) {
-                    return pair1.Value.CompareTo(pair2.Value);
+            llaveOrdenada.Sort(
+                delegate (KeyValuePair<int, char> par1, KeyValuePair<int, char> par2) {
+                    return par1.Value.CompareTo(par2.Value);
                 }
             );
 
-            for (i = 0; i < keyLength; ++i)
-                indexes[sortedKey[i].Key] = i;
+            for (i = 0; i < longitudLlave; ++i)
+                indexs[llaveOrdenada[i].Key] = i;
 
-            return indexes;
+            return indexs;
         }
 
         public static string Encipher(string input, string key, char padChar)
@@ -40,7 +40,7 @@ namespace Laboratorio01.Cipher
             char[,] colChars = new char[totalColumns, totalRows];
             char[,] sortedColChars = new char[totalColumns, totalRows];
             int currentRow, currentColumn, i, j;
-            int[] shiftIndexes = GetShiftIndexes(key);
+            int[] shiftIndexes = Indexs(key);
 
             for (i = 0; i < totalChars; ++i)
             {
@@ -77,7 +77,7 @@ namespace Laboratorio01.Cipher
             char[,] colChars = new char[totalColumns, totalRows];
             char[,] unsortedColChars = new char[totalColumns, totalRows];
             int currentRow, currentColumn, i, j;
-            int[] shiftIndexes = GetShiftIndexes(key);
+            int[] shiftIndexes = Indexs(key);
 
             for (i = 0; i < totalChars; ++i)
             {
