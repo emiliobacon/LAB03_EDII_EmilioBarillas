@@ -155,6 +155,75 @@ namespace Laboratorio01.Controllers
             }
         }
 
+        //cifrar conversaciones del "guasap"
+        public ActionResult searchConv()
+        {
+            return View(new ClientModel());
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult searchConv(IFormCollection collection)
+        {
+            try
+            {
+                long parametro = (long.Parse(collection["Id"]));
+                string contrasena = (collection["FullName"]);
+
+                ViewData["DPI"] = parametro;
+
+
+                //insertar carta 1
+                if (LeerConv.Leer(parametro, 1) != "error")
+                {
+                    string conv = LeerConv.Leer(parametro, 1);
+
+                    ViewData["Codificado_1"] = Cipher.Transposition.Encipher(conv, contrasena, '-');
+
+                    ViewData["Decodificado_1"] = Cipher.Transposition.Decipher(Cipher.Transposition.Encipher(conv, contrasena, '-'), contrasena);
+                }
+                else
+                {
+                    return RedirectToAction(nameof(Error));
+                }
+
+                //insertar carta 2
+                if (LeerConv.Leer(parametro, 2) != "error")
+                {
+                    string conv = LeerConv.Leer(parametro, 2);
+
+                    ViewData["Codificado_2"] = Cipher.Transposition.Encipher(conv, contrasena, '-');
+
+                    ViewData["Decodificado_2"] = Cipher.Transposition.Decipher(Cipher.Transposition.Encipher(conv, contrasena, '-'), contrasena);
+                }
+                //insertar carta 3
+                if (LeerConv.Leer(parametro, 3) != "error")
+                {
+                    string conv = LeerConv.Leer(parametro, 3);
+
+                    ViewData["Codificado_3"] = Cipher.Transposition.Encipher(conv, contrasena, '-');
+
+                    ViewData["Decodificado_3"] = Cipher.Transposition.Decipher(Cipher.Transposition.Encipher(conv, contrasena, '-'), contrasena);
+                }
+                //insertar carta 4
+                if (LeerConv.Leer(parametro, 4) != "error")
+                {
+                    string conv = LeerConv.Leer(parametro, 4);
+
+                    ViewData["Codificado_4"] = Cipher.Transposition.Encipher(conv, contrasena, '-');
+
+                    ViewData["Decodificado_4"] = Cipher.Transposition.Decipher(Cipher.Transposition.Encipher(conv, contrasena, '-'), contrasena);
+                }
+
+
+
+                return View();
+            }
+            catch
+            {
+                return RedirectToAction(nameof(Error));
+            }
+        }
+
 
 
         //busqueda completa
