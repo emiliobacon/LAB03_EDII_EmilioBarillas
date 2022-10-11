@@ -177,9 +177,9 @@ namespace Laboratorio01.Controllers
                 {
                     string conv = LeerConv.Leer(parametro, 1);
 
-                    ViewData["Codificado_1"] = Cipher.Transposition.Encipher(conv, contrasena, '-');
+                    ViewData["Codificado_1"] = Cipher.Transposition.Cifrar(conv, contrasena, '-');
 
-                    ViewData["Decodificado_1"] = Cipher.Transposition.Decipher(Cipher.Transposition.Encipher(conv, contrasena, '-'), contrasena);
+                    ViewData["Decodificado_1"] = Cipher.Transposition.Decifrar(Cipher.Transposition.Cifrar(conv, contrasena, '-'), contrasena);
                 }
                 else
                 {
@@ -191,27 +191,27 @@ namespace Laboratorio01.Controllers
                 {
                     string conv = LeerConv.Leer(parametro, 2);
 
-                    ViewData["Codificado_2"] = Cipher.Transposition.Encipher(conv, contrasena, '-');
+                    ViewData["Codificado_2"] = Cipher.Transposition.Cifrar(conv, contrasena, '-');
 
-                    ViewData["Decodificado_2"] = Cipher.Transposition.Decipher(Cipher.Transposition.Encipher(conv, contrasena, '-'), contrasena);
+                    ViewData["Decodificado_2"] = Cipher.Transposition.Decifrar(Cipher.Transposition.Cifrar(conv, contrasena, '-'), contrasena);
                 }
                 //insertar carta 3
                 if (LeerConv.Leer(parametro, 3) != "error")
                 {
                     string conv = LeerConv.Leer(parametro, 3);
 
-                    ViewData["Codificado_3"] = Cipher.Transposition.Encipher(conv, contrasena, '-');
+                    ViewData["Codificado_3"] = Cipher.Transposition.Cifrar(conv, contrasena, '-');
 
-                    ViewData["Decodificado_3"] = Cipher.Transposition.Decipher(Cipher.Transposition.Encipher(conv, contrasena, '-'), contrasena);
+                    ViewData["Decodificado_3"] = Cipher.Transposition.Decifrar(Cipher.Transposition.Cifrar(conv, contrasena, '-'), contrasena);
                 }
                 //insertar carta 4
                 if (LeerConv.Leer(parametro, 4) != "error")
                 {
                     string conv = LeerConv.Leer(parametro, 4);
 
-                    ViewData["Codificado_4"] = Cipher.Transposition.Encipher(conv, contrasena, '-');
+                    ViewData["Codificado_4"] = Cipher.Transposition.Cifrar(conv, contrasena, '-');
 
-                    ViewData["Decodificado_4"] = Cipher.Transposition.Decipher(Cipher.Transposition.Encipher(conv, contrasena, '-'), contrasena);
+                    ViewData["Decodificado_4"] = Cipher.Transposition.Decifrar(Cipher.Transposition.Cifrar(conv, contrasena, '-'), contrasena);
                 }
 
 
