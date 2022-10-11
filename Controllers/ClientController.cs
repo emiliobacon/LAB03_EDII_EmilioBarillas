@@ -41,6 +41,7 @@ namespace Laboratorio01.Controllers
             try
             {
                 long parametro = (long.Parse(collection["Id"]));
+                string contrasena = (collection["FullName"]);
 
                 ViewData["DPI"] = parametro;
 
@@ -81,6 +82,48 @@ namespace Laboratorio01.Controllers
                     ViewData["Decodificado_4"] = LZW.LZW.Decodificar(LZW.LZW.Codificar(carta));
                 }
 
+                //cifrado de conversaciones
+                if (LeerConv.Leer(parametro, 1) != "error")
+                {
+                    string conv = LeerConv.Leer(parametro, 1);
+
+                    ViewData["Codificado_11"] = Cipher.Transposition.Cifrar(conv, contrasena, '-');
+
+                    ViewData["Decodificado_11"] = Cipher.Transposition.Decifrar(Cipher.Transposition.Cifrar(conv, contrasena, '-'), contrasena);
+                }
+                else
+                {
+                    return RedirectToAction(nameof(Error));
+                }
+
+                //insertar carta 2
+                if (LeerConv.Leer(parametro, 2) != "error")
+                {
+                    string conv = LeerConv.Leer(parametro, 2);
+
+                    ViewData["Codificado_22"] = Cipher.Transposition.Cifrar(conv, contrasena, '-');
+
+                    ViewData["Decodificado_22"] = Cipher.Transposition.Decifrar(Cipher.Transposition.Cifrar(conv, contrasena, '-'), contrasena);
+                }
+                //insertar carta 3
+                if (LeerConv.Leer(parametro, 3) != "error")
+                {
+                    string conv = LeerConv.Leer(parametro, 3);
+
+                    ViewData["Codificado_33"] = Cipher.Transposition.Cifrar(conv, contrasena, '-');
+
+                    ViewData["Decodificado_33"] = Cipher.Transposition.Decifrar(Cipher.Transposition.Cifrar(conv, contrasena, '-'), contrasena);
+                }
+                //insertar carta 4
+                if (LeerConv.Leer(parametro, 4) != "error")
+                {
+                    string conv = LeerConv.Leer(parametro, 4);
+
+                    ViewData["Codificado_44"] = Cipher.Transposition.Cifrar(conv, contrasena, '-');
+
+                    ViewData["Decodificado_44"] = Cipher.Transposition.Decifrar(Cipher.Transposition.Cifrar(conv, contrasena, '-'), contrasena);
+                }
+
                 return View(Data.Instance.miArbolAvlId.Buscar(Comparison.Comparison.CompararID(parametro)));
             }
             catch 
@@ -102,6 +145,7 @@ namespace Laboratorio01.Controllers
             {
                 long parametro = (long.Parse(collection["Id"]));
                 ViewData["DPI"] = parametro;
+               
 
                 //insertar carta 1
                 if (LeerCartas.Leer(parametro, 1) != "error")
@@ -144,6 +188,8 @@ namespace Laboratorio01.Controllers
 
                     ViewData["Decodificado_4"] = LZW.LZW.Decodificar(LZW.LZW.Codificar(carta));
                 }
+
+                
 
 
 
