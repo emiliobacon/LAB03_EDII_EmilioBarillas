@@ -7,7 +7,7 @@ namespace Laboratorio01.Cipher
 {
     public class Transposition
     {
-        private static int[] Indexs(string llave)
+        public static int[] Indexs(string llave)
         {
             int longitudLlave = llave.Length;
             int[] indexs = new int[longitudLlave];
@@ -15,93 +15,127 @@ namespace Laboratorio01.Cipher
             int i;
 
             for (i = 0; i < longitudLlave; ++i)
+            {
                 llaveOrdenada.Add(new KeyValuePair<int, char>(i, llave[i]));
+            }
 
-            llaveOrdenada.Sort(
-                delegate (KeyValuePair<int, char> par1, KeyValuePair<int, char> par2) {
+            llaveOrdenada.Sort
+            (
+                delegate (KeyValuePair<int, char> par1, KeyValuePair<int, char> par2)
+                {
                     return par1.Value.CompareTo(par2.Value);
                 }
             );
 
             for (i = 0; i < longitudLlave; ++i)
+            {
                 indexs[llaveOrdenada[i].Key] = i;
+            }
 
             return indexs;
         }
 
-        public static string Encipher(string input, string key, char padChar)
+        public static string Cifrar(string entrada, string llave, char espacio)
         {
-            input = (input.Length % key.Length == 0) ? input : input.PadRight(input.Length - (input.Length % key.Length) + key.Length, padChar);
-            StringBuilder output = new StringBuilder();
-            int totalChars = input.Length;
-            int totalColumns = key.Length;
-            int totalRows = (int)Math.Ceiling((double)totalChars / totalColumns);
-            char[,] rowChars = new char[totalRows, totalColumns];
-            char[,] colChars = new char[totalColumns, totalRows];
-            char[,] sortedColChars = new char[totalColumns, totalRows];
-            int currentRow, currentColumn, i, j;
-            int[] shiftIndexes = Indexs(key);
+            entrada = (entrada.Length % llave.Length == 0) ? entrada : entrada.PadRight(entrada.Length - (entrada.Length % llave.Length) + llave.Length, espacio);
+            StringBuilder salida = new StringBuilder();
 
-            for (i = 0; i < totalChars; ++i)
+            int caracteres_total = entrada.Length;
+            int columnasTotales = llave.Length;
+            int totalFilas = (int)Math.Ceiling((double)caracteres_total / columnasTotales);
+
+            char[,] caracteresFila = new char[totalFilas, columnasTotales];
+            char[,] caracteresColumna = new char[columnasTotales, totalFilas];
+            char[,] caracteresColumnaOrdenados = new char[columnasTotales, totalFilas];
+
+            int filaActual;
+            int columnaActual;
+            int i;
+            int j;
+            int[] indexsCambio = Indexs(llave);
+
+            for (i = 0; i < caracteres_total; i++)
             {
-                currentRow = i / totalColumns;
-                currentColumn = i % totalColumns;
-                rowChars[currentRow, currentColumn] = input[i];
+                filaActual = i / columnasTotales;
+                columnaActual = i % columnasTotales;
+                caracteresFila[filaActual, columnaActual] = entrada[i];
             }
 
-            for (i = 0; i < totalRows; ++i)
-                for (j = 0; j < totalColumns; ++j)
-                    colChars[j, i] = rowChars[i, j];
-
-            for (i = 0; i < totalColumns; ++i)
-                for (j = 0; j < totalRows; ++j)
-                    sortedColChars[shiftIndexes[i], j] = colChars[i, j];
-
-            for (i = 0; i < totalChars; ++i)
+            for (i = 0; i < totalFilas; ++i)
             {
-                currentRow = i / totalRows;
-                currentColumn = i % totalRows;
-                output.Append(sortedColChars[currentRow, currentColumn]);
+                for (j = 0; j < columnasTotales; ++j)
+                {
+                    caracteresColumna[j, i] = caracteresFila[i, j];
+                }
             }
 
-            return output.ToString();
+            for (i = 0; i < columnasTotales; ++i)
+            {
+                for (j = 0; j < totalFilas; ++j)
+                {
+                    caracteresColumnaOrdenados[indexsCambio[i], j] = caracteresColumna[i, j];
+                }
+            }
+
+            for (i = 0; i < caracteres_total; ++i)
+            {
+                filaActual = i / totalFilas;
+                columnaActual = i % totalFilas;
+                salida.Append(caracteresColumnaOrdenados[filaActual, columnaActual]);
+            }
+
+            return salida.ToString();
         }
 
-        public static string Decipher(string input, string key)
+        public static string Decifrar(string entrada, string llave)
         {
-            StringBuilder output = new StringBuilder();
-            int totalChars = input.Length;
-            int totalColumns = (int)Math.Ceiling((double)totalChars / key.Length);
-            int totalRows = key.Length;
-            char[,] rowChars = new char[totalRows, totalColumns];
-            char[,] colChars = new char[totalColumns, totalRows];
-            char[,] unsortedColChars = new char[totalColumns, totalRows];
-            int currentRow, currentColumn, i, j;
-            int[] shiftIndexes = Indexs(key);
+            StringBuilder salida = new StringBuilder();
 
-            for (i = 0; i < totalChars; ++i)
+            int caracteresTotal = entrada.Length;
+            int columnasTotales = (int)Math.Ceiling((double)caracteresTotal / llave.Length);
+            int filasTotales = llave.Length;
+
+            char[,] caracteresFila = new char[filasTotales, columnasTotales];
+            char[,] caracteresColumna = new char[columnasTotales, filasTotales];
+            char[,] caracteresColumnaDesordenados = new char[columnasTotales, filasTotales];
+
+            int filaActual;
+            int columnaActual;
+            int i;
+            int j;
+            int[] indexsCambio = Indexs(llave);
+
+            for (i = 0; i < caracteresTotal; i++)
             {
-                currentRow = i / totalColumns;
-                currentColumn = i % totalColumns;
-                rowChars[currentRow, currentColumn] = input[i];
+                filaActual = i / columnasTotales;
+                columnaActual = i % columnasTotales;
+                caracteresFila[filaActual, columnaActual] = entrada[i];
             }
 
-            for (i = 0; i < totalRows; ++i)
-                for (j = 0; j < totalColumns; ++j)
-                    colChars[j, i] = rowChars[i, j];
-
-            for (i = 0; i < totalColumns; ++i)
-                for (j = 0; j < totalRows; ++j)
-                    unsortedColChars[i, j] = colChars[i, shiftIndexes[j]];
-
-            for (i = 0; i < totalChars; ++i)
+            for (i = 0; i < filasTotales; i++)
             {
-                currentRow = i / totalRows;
-                currentColumn = i % totalRows;
-                output.Append(unsortedColChars[currentRow, currentColumn]);
+                for (j = 0; j < columnasTotales; j++)
+                {
+                    caracteresColumna[j, i] = caracteresFila[i, j];
+                }
             }
 
-            return output.ToString();
+            for (i = 0; i < columnasTotales; i++)
+            {
+                for (j = 0; j < filasTotales; j++)
+                {
+                    caracteresColumnaDesordenados[i, j] = caracteresColumna[i, indexsCambio[j]];
+                }
+            }
+
+            for (i = 0; i < caracteresTotal; i++)
+            {
+                filaActual = i / filasTotales;
+                columnaActual = i % filasTotales;
+                salida.Append(caracteresColumnaDesordenados[filaActual, columnaActual]);
+            }
+
+            return salida.ToString();
         }
     }
 }
